@@ -4,8 +4,6 @@
  */
 package com.allamiflorencia.Portfolio.DTO;
 
-import com.allamiflorencia.Portfolio.model.Info;
-import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +12,13 @@ import lombok.Setter;
  * @author flopy
  */
 @Getter @Setter
-public class SeccionDTO {
+public class InfoDTO {
     private String titulo;
-    private String tipo;
-    private List<InfoDTO> data;
-
-
+    private String link; 
+    private String descripcion;
     
+    @Override
+    public String toString(){
+        return "titulo: "+this.titulo+"; link: "+this.link+"; descripcion: "+this.descripcion;
+    }
 }

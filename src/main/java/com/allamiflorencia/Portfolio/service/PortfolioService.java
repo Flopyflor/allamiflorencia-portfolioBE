@@ -4,6 +4,7 @@
  */
 package com.allamiflorencia.Portfolio.service;
 
+import com.allamiflorencia.Portfolio.DTO.InfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
@@ -15,9 +16,16 @@ import com.allamiflorencia.Portfolio.repository.InfoRepository;
 import com.allamiflorencia.Portfolio.repository.PersonRepository;
 import com.allamiflorencia.Portfolio.repository.SeccionRepository;
 import com.allamiflorencia.Portfolio.repository.TipoRepository;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
+import jakarta.persistence.SqlResultSetMapping;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.lang.String;
 
 /**
  *
@@ -37,6 +45,9 @@ public class PortfolioService implements IPortfolioService {
     
     @Autowired
     private PersonRepository persRepo;
+    
+    @Autowired
+    private EntityManager em;
 
     @Override
     public void crearTipo(String nombre) {
@@ -80,11 +91,48 @@ public class PortfolioService implements IPortfolioService {
     }
 
     @Override
-    public List<SeccionDTO> traerSecciones() {
+    public List<SeccionDTO> traerSeccionesDTO() {
+        List<Seccion> secciones = secRepo.findAll();
+        List<SeccionDTO> rta = new ArrayList();
         
-        //necesito buscar todas las secciones, poner sus datos en SeccionesDTO, lo cual incluye agregarles las listas de Info
-        
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (Seccion s : secciones){
+            SeccionDTO sdto = new SeccionDTO();
+            sdto.setTitulo(s.getTitulo());
+            sdto.setTipo(s.getTipo().getTipo());
+            
+            List<Object[]> infos = infoRepo.findDTOBySeccion(s.getId());
+            List<InfoDTO> data = new ArrayList();
+            
+            for(Object[] fila : infos){
+                InfoDTO info = new InfoDTO();
+                info.setTitulo((String) fila[0]);
+                info.setLink((String) fila[1]);
+                info.setDescripcion((String) fila[2]);
+                data.add(info);
+            }
+            
+            sdto.setData(data);
+            rta.add(sdto);
+        }
+        //return rta;
+        return rta;
     }
+
+    @Override
+    public List<Tipo> traerTipos() {
+        return tipoRepo.findAll();
+    }
+
+    @Override
+    public List<Seccion> traerSecciones() {
+        return secRepo.findAll();
+    }
+
+    @Override
+    public List<Info> traerInfo() {
+        return infoRepo.findAll();
+    }
+
+
     
 }

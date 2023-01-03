@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,4 +29,7 @@ public class Seccion {
     
     @ManyToOne
     private Tipo tipo;
+    
+    //@OneToMany(mappedBy="seccion")
+    //private List<Info> data;
 }

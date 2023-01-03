@@ -4,10 +4,14 @@
  */
 package com.allamiflorencia.Portfolio.controller;
 
+import com.allamiflorencia.Portfolio.DTO.InfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
+import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Person;
+import com.allamiflorencia.Portfolio.model.Seccion;
+import com.allamiflorencia.Portfolio.model.Tipo;
 import com.allamiflorencia.Portfolio.service.PortfolioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,6 +60,24 @@ public class PortfolioController {
     @GetMapping("/traer/secciones")
     @ResponseBody
     public List<SeccionDTO> traerSecciones(){
+        return portServ.traerSeccionesDTO();
+    }
+    
+    @GetMapping("/ver/seccion")
+    @ResponseBody
+    public List<Seccion> verSecciones(){
         return portServ.traerSecciones();
+    }
+    
+    @GetMapping("/ver/info")
+    @ResponseBody
+    public List<Info> verInfo(){
+        return portServ.traerInfo();
+    }
+    
+    @GetMapping("/ver/tipo")
+    @ResponseBody
+    public List<Tipo> verTipos(){
+        return portServ.traerTipos();
     }
 }

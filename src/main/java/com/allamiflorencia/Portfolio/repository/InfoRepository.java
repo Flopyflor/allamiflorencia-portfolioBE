@@ -4,6 +4,7 @@
  */
 package com.allamiflorencia.Portfolio.repository;
 
+import com.allamiflorencia.Portfolio.DTO.InfoDTO;
 import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Seccion;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface InfoRepository extends JpaRepository <Info, Long>{
     
-    @Query(value="SELECT * FROM info WHERE info.seccion = ?1")
-    public List<Info> findAllBySection(Seccion section);
+    //@Query("SELECT i FROM info WHERE info.seccion=?1")
+    @Query(value = "SELECT info.titulo, info.link, info.descripcion FROM info where info.seccion_id= ?1", nativeQuery=true)
+    public List<Object[]> findDTOBySeccion(Long seccion_id);
 }

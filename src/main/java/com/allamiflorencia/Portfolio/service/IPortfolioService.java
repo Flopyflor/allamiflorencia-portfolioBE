@@ -4,10 +4,14 @@
  */
 package com.allamiflorencia.Portfolio.service;
 
+import com.allamiflorencia.Portfolio.DTO.InfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
+import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Person;
+import com.allamiflorencia.Portfolio.model.Seccion;
+import com.allamiflorencia.Portfolio.model.Tipo;
 import java.util.List;
 
 /**
@@ -20,5 +24,8 @@ public interface IPortfolioService {
     public void crearInfo(PseudoInfoDTO pseudo_info);
     public void crearPerson(Person person);
     public Person traerPerson();
-    public List<SeccionDTO> traerSecciones();
+    public List<SeccionDTO> traerSeccionesDTO();
+    public List<Tipo> traerTipos();
+    public List<Seccion> traerSecciones();
+    public List<Info> traerInfo();
 }

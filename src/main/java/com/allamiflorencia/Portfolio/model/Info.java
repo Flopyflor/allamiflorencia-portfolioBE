@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,6 +28,7 @@ public class Info {
     private String descripcion; //es un porcentaje en caso de ser una progress bar
     
     @ManyToOne
+    //@JoinColumn(name="seccion")
     private Seccion seccion; //a la que pertenece. la seccion contiene la info sobre el tipo de cosa q es
     
 }
