@@ -4,8 +4,11 @@
  */
 package com.allamiflorencia.Portfolio.repository;
 
+import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.model.Person;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -14,5 +17,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PersonRepository extends JpaRepository <Person, Long>{
-    
+    /*
+    @Query(value="SELECT person.nombre, person.bio FROM person", nativeQuery=true)
+    public List<Object[]> traerPerson()
+    */
 }

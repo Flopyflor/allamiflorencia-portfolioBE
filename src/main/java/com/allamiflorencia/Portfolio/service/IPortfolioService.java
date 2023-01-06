@@ -5,9 +5,11 @@
 package com.allamiflorencia.Portfolio.service;
 
 import com.allamiflorencia.Portfolio.DTO.InfoDTO;
+import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
+import com.allamiflorencia.Portfolio.model.Credenciales;
 import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.model.Seccion;
@@ -21,11 +23,17 @@ import java.util.List;
 public interface IPortfolioService {
     public void crearTipo(String tipo);
     public void crearSeccion(PseudoSeccionDTO pseudo_seccion);
-    public void crearInfo(PseudoInfoDTO pseudo_info);
+    public void updateInfo(PseudoInfoDTO pseudo_info);
+    public Long crearInfo(PseudoInfoDTO pseudo_info);
     public void crearPerson(Person person);
     public Person traerPerson();
     public List<SeccionDTO> traerSeccionesDTO();
     public List<Tipo> traerTipos();
     public List<Seccion> traerSecciones();
     public List<Info> traerInfo();
+    
+    public void crearLogin(Credenciales credenciales);
+    public boolean validarCredenciales(Credenciales credenciales);
+    
+    public void borrarInfo(Long id);
 }

@@ -20,6 +20,14 @@ import org.springframework.stereotype.Repository;
 public interface InfoRepository extends JpaRepository <Info, Long>{
     
     //@Query("SELECT i FROM info WHERE info.seccion=?1")
-    @Query(value = "SELECT info.titulo, info.link, info.descripcion FROM info where info.seccion_id= ?1", nativeQuery=true)
+    @Query(value = "SELECT info.id, info.titulo, info.link, info.descripcion FROM info where info.seccion_id= ?1", nativeQuery=true)
     public List<Object[]> findDTOBySeccion(Long seccion_id);
+    
+    @Query(value = 
+            "SELECT info.id FROM info "
+                    + "WHERE info.titulo is null and "
+                    + "info.link is null and "
+                    + "info.descripcion is null and "
+                    + "info.seccion_id = ?1", nativeQuery=true)
+    public List<Long> findNewInfo(Long seccion_id);
 }

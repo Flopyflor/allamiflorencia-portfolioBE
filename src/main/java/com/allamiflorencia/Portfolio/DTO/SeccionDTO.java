@@ -15,6 +15,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 public class SeccionDTO {
+    private Long id;
     private String titulo;
     private String tipo;
     private List<InfoDTO> data;

@@ -5,13 +5,16 @@
 package com.allamiflorencia.Portfolio.service;
 
 import com.allamiflorencia.Portfolio.DTO.InfoDTO;
+import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
+import com.allamiflorencia.Portfolio.model.Credenciales;
 import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.model.Seccion;
 import com.allamiflorencia.Portfolio.model.Tipo;
+import com.allamiflorencia.Portfolio.repository.CredencialesRepository;
 import com.allamiflorencia.Portfolio.repository.InfoRepository;
 import com.allamiflorencia.Portfolio.repository.PersonRepository;
 import com.allamiflorencia.Portfolio.repository.SeccionRepository;
@@ -47,7 +50,7 @@ public class PortfolioService implements IPortfolioService {
     private PersonRepository persRepo;
     
     @Autowired
-    private EntityManager em;
+    private CredencialesRepository credRepo;
 
     @Override
     public void crearTipo(String nombre) {
@@ -68,8 +71,9 @@ public class PortfolioService implements IPortfolioService {
     }
 
     @Override
-    public void crearInfo(PseudoInfoDTO pseudo_info) {
+    public void updateInfo(PseudoInfoDTO pseudo_info) {
         Info info = new Info();
+        info.setId(pseudo_info.getId());
         info.setDescripcion(pseudo_info.getDescripcion());
         info.setTitulo(pseudo_info.getTitulo());
         info.setLink(pseudo_info.getLink());
@@ -79,15 +83,36 @@ public class PortfolioService implements IPortfolioService {
         
         infoRepo.save(info);
     }
+    
+    @Override
+    public Long crearInfo(PseudoInfoDTO pseudo_info){
+        Info info = new Info();
+        info.setId(pseudo_info.getId());
+        info.setDescripcion(pseudo_info.getDescripcion());
+        info.setTitulo(pseudo_info.getTitulo());
+        info.setLink(pseudo_info.getLink());
+        
+        Seccion seccion = secRepo.findSeccionByNombre(pseudo_info.getSeccion());
+        info.setSeccion(seccion);
+        
+        infoRepo.save(info);
+        
+        System.out.println("lo busco...");
+        
+        List<Long> lista = infoRepo.findNewInfo(seccion.getId());
+        
+        return lista.get(lista.size()-1);
+    }
 
     @Override
     public void crearPerson(Person person) {
         persRepo.save(person);
-    }
+    }    
 
     @Override
     public Person traerPerson() {
-        return persRepo.findAll().get(0);
+        Person persona = persRepo.findAll().get(0);
+        return persona;
     }
 
     @Override
@@ -97,6 +122,7 @@ public class PortfolioService implements IPortfolioService {
         
         for (Seccion s : secciones){
             SeccionDTO sdto = new SeccionDTO();
+            sdto.setId(s.getId());
             sdto.setTitulo(s.getTitulo());
             sdto.setTipo(s.getTipo().getTipo());
             
@@ -105,9 +131,10 @@ public class PortfolioService implements IPortfolioService {
             
             for(Object[] fila : infos){
                 InfoDTO info = new InfoDTO();
-                info.setTitulo((String) fila[0]);
-                info.setLink((String) fila[1]);
-                info.setDescripcion((String) fila[2]);
+                info.setId((Long) fila[0]);
+                info.setTitulo((String) fila[1]);
+                info.setLink((String) fila[2]);
+                info.setDescripcion((String) fila[3]);
                 data.add(info);
             }
             
@@ -131,6 +158,21 @@ public class PortfolioService implements IPortfolioService {
     @Override
     public List<Info> traerInfo() {
         return infoRepo.findAll();
+    }
+
+    @Override
+    public void crearLogin(Credenciales credenciales) {
+        credRepo.save(credenciales);
+    }
+
+    @Override
+    public boolean validarCredenciales(Credenciales credenciales) {
+        return credRepo.hallarLogin(credenciales.getUsuario(), credenciales.getPassword()).size() == 1;
+    }
+
+    @Override
+    public void borrarInfo(Long id) {
+        infoRepo.deleteById(id);
     }
 
 
