@@ -60,7 +60,7 @@ public class PortfolioService implements IPortfolioService {
     }
 
     @Override
-    public void crearSeccion(PseudoSeccionDTO pseudo_seccion) {
+    public Long crearSeccion(PseudoSeccionDTO pseudo_seccion) {
         Seccion seccion = new Seccion();
         seccion.setTitulo(pseudo_seccion.getTitulo());
         
@@ -68,6 +68,7 @@ public class PortfolioService implements IPortfolioService {
         seccion.setTipo(tipo);
         
         secRepo.save(seccion);
+        return secRepo.findSeccionByNombre(seccion.getTitulo()).getId();
     }
 
     @Override
@@ -96,9 +97,7 @@ public class PortfolioService implements IPortfolioService {
         info.setSeccion(seccion);
         
         infoRepo.save(info);
-        
-        System.out.println("lo busco...");
-        
+                
         List<Long> lista = infoRepo.findNewInfo(seccion.getId());
         
         return lista.get(lista.size()-1);
@@ -173,6 +172,23 @@ public class PortfolioService implements IPortfolioService {
     @Override
     public void borrarInfo(Long id) {
         infoRepo.deleteById(id);
+    }
+
+    @Override
+    public void borrarSeccion(Long id) {
+        secRepo.deleteById(id);
+    }
+
+    @Override
+    public void updateSeccionTitulo(SeccionDTO pseudo_seccion) {
+        Seccion seccion = secRepo.findById(pseudo_seccion.getId()).orElse(null);
+        seccion.setTitulo(pseudo_seccion.getTitulo());
+        secRepo.save(seccion);
+    }
+
+    @Override
+    public List<String> traerSeccionTitulo() {
+        return secRepo.getTitulos();
     }
 
 

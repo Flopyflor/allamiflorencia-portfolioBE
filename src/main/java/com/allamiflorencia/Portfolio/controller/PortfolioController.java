@@ -34,17 +34,11 @@ public class PortfolioController {
     @Autowired
     private PortfolioService portServ;
     
-    //futuro update desde FE
+    //SetUp DB
     @PostMapping("/crear/tipo/{nombre}")
     public void crearTipo(@PathVariable String nombre){
         portServ.crearTipo(nombre);
-    }
-    
-    @PostMapping("/crear/seccion")
-    public void crearSeccion(@RequestBody PseudoSeccionDTO pseudo_seccion){
-        portServ.crearSeccion(pseudo_seccion);
-    }
-    
+    }    
     
     // update desde FE
     @PostMapping("/update/info")
@@ -68,6 +62,21 @@ public class PortfolioController {
         return portServ.crearInfo(info);
     }
     
+    @PostMapping("/crear/seccion")
+    public Long crearSeccion(@RequestBody PseudoSeccionDTO pseudo_seccion){
+        return portServ.crearSeccion(pseudo_seccion);
+    }
+    
+    @PostMapping("/borrar/seccion")
+    public void borrarSeccion(@RequestBody Long id){
+        portServ.borrarSeccion(id);
+    }
+    
+    @PostMapping("/update/seccion")
+    public void updateSeccion(@RequestBody SeccionDTO seccion){
+        portServ.updateSeccionTitulo(seccion);
+    }
+    
     
     // Yo armando la DB
     @PostMapping("/crear/login")
@@ -88,6 +97,12 @@ public class PortfolioController {
     @ResponseBody
     public List<SeccionDTO> traerSecciones(){
         return portServ.traerSeccionesDTO();
+    }
+    
+    @GetMapping("/traer/secciones-titulo")
+    @ResponseBody
+    public List<String> traerSeccionesTitulo(){
+        return portServ.traerSeccionTitulo();
     }
     
     

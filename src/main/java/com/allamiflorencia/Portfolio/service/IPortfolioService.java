@@ -22,7 +22,9 @@ import java.util.List;
  */
 public interface IPortfolioService {
     public void crearTipo(String tipo);
-    public void crearSeccion(PseudoSeccionDTO pseudo_seccion);
+    public Long crearSeccion(PseudoSeccionDTO pseudo_seccion);
+    public void borrarSeccion(Long id);
+    public void updateSeccionTitulo(SeccionDTO seccion);
     public void updateInfo(PseudoInfoDTO pseudo_info);
     public Long crearInfo(PseudoInfoDTO pseudo_info);
     public void crearPerson(Person person);
@@ -31,6 +33,7 @@ public interface IPortfolioService {
     public List<Tipo> traerTipos();
     public List<Seccion> traerSecciones();
     public List<Info> traerInfo();
+    public List<String> traerSeccionTitulo();
     
     public void crearLogin(Credenciales credenciales);
     public boolean validarCredenciales(Credenciales credenciales);
