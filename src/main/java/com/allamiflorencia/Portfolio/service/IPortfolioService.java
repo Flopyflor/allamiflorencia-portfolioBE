@@ -9,7 +9,6 @@ import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
-import com.allamiflorencia.Portfolio.model.Credenciales;
 import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.model.Seccion;
@@ -34,9 +33,6 @@ public interface IPortfolioService {
     public List<Seccion> traerSecciones();
     public List<Info> traerInfo();
     public List<String> traerSeccionTitulo();
-    
-    public void crearLogin(Credenciales credenciales);
-    public boolean validarCredenciales(Credenciales credenciales);
-    
+        
     public void borrarInfo(Long id);
 }

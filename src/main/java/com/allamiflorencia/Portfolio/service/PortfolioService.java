@@ -9,12 +9,10 @@ import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
-import com.allamiflorencia.Portfolio.model.Credenciales;
 import com.allamiflorencia.Portfolio.model.Info;
 import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.model.Seccion;
 import com.allamiflorencia.Portfolio.model.Tipo;
-import com.allamiflorencia.Portfolio.repository.CredencialesRepository;
 import com.allamiflorencia.Portfolio.repository.InfoRepository;
 import com.allamiflorencia.Portfolio.repository.PersonRepository;
 import com.allamiflorencia.Portfolio.repository.SeccionRepository;
@@ -49,8 +47,6 @@ public class PortfolioService implements IPortfolioService {
     @Autowired
     private PersonRepository persRepo;
     
-    @Autowired
-    private CredencialesRepository credRepo;
 
     @Override
     public void crearTipo(String nombre) {
@@ -157,16 +153,6 @@ public class PortfolioService implements IPortfolioService {
     @Override
     public List<Info> traerInfo() {
         return infoRepo.findAll();
-    }
-
-    @Override
-    public void crearLogin(Credenciales credenciales) {
-        credRepo.save(credenciales);
-    }
-
-    @Override
-    public boolean validarCredenciales(Credenciales credenciales) {
-        return credRepo.hallarLogin(credenciales.getUsuario(), credenciales.getPassword()).size() == 1;
     }
 
     @Override
