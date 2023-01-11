@@ -4,8 +4,6 @@
  */
 package com.allamiflorencia.Portfolio.service;
 
-import com.allamiflorencia.Portfolio.DTO.InfoDTO;
-import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
@@ -33,6 +31,7 @@ public interface IPortfolioService {
     public List<Seccion> traerSecciones();
     public List<Info> traerInfo();
     public List<String> traerSeccionTitulo();
+    public List<String> traerTiposTitulos();
         
     public void borrarInfo(Long id);
 }

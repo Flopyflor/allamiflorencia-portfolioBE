@@ -177,6 +177,11 @@ public class PortfolioService implements IPortfolioService {
         return secRepo.getTitulos();
     }
 
+    @Override
+    public List<String> traerTiposTitulos() {
+        return tipoRepo.getTitulos();
+    }
+
 
     
 }

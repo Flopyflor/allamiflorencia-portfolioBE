@@ -14,7 +14,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,8 @@ public class JwtService {
 
   //@Value("${secret}")
   private static final String SECRET_KEY = "7382591jdshDGEABTDSAGFDgmdksjgkls9706489265936hdgfvuiohuhsBNFSGR8289spcmrhPVe643FJIhji49hwbfuihdjkjjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjk7";
-
+  private static final int DURATION = 1000 * 60 * 60;
+  
   public String extractUsername(String token) {
     return extractClaim(token, Claims::getSubject);
   }
@@ -50,7 +50,7 @@ public class JwtService {
         .setClaims(extraClaims)
         .setSubject(userDetails.getUsername())
         .setIssuedAt(new Date(System.currentTimeMillis()))
-        .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+        .setExpiration(new Date(System.currentTimeMillis() + DURATION))
         .signWith(getSignInKey(), SignatureAlgorithm.HS256)
         .compact();
   }
