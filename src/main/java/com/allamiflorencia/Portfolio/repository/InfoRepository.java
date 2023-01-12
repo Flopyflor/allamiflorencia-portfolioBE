@@ -4,9 +4,7 @@
  */
 package com.allamiflorencia.Portfolio.repository;
 
-import com.allamiflorencia.Portfolio.DTO.InfoDTO;
 import com.allamiflorencia.Portfolio.model.Info;
-import com.allamiflorencia.Portfolio.model.Seccion;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

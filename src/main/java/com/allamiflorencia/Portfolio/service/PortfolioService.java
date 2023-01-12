@@ -5,7 +5,6 @@
 package com.allamiflorencia.Portfolio.service;
 
 import com.allamiflorencia.Portfolio.DTO.InfoDTO;
-import com.allamiflorencia.Portfolio.DTO.PersonDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
 import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
@@ -17,16 +16,10 @@ import com.allamiflorencia.Portfolio.repository.InfoRepository;
 import com.allamiflorencia.Portfolio.repository.PersonRepository;
 import com.allamiflorencia.Portfolio.repository.SeccionRepository;
 import com.allamiflorencia.Portfolio.repository.TipoRepository;
-import jakarta.persistence.ColumnResult;
-import jakarta.persistence.ConstructorResult;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.Query;
-import jakarta.persistence.SqlResultSetMapping;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.lang.String;
 
 /**
  *

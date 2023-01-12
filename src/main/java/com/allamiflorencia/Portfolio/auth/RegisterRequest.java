@@ -4,7 +4,6 @@
  */
 package com.allamiflorencia.Portfolio.auth;
 
-import com.allamiflorencia.Portfolio.users.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
