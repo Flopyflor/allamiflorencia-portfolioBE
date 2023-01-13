@@ -10,10 +10,18 @@ import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.model.Seccion;
 import com.allamiflorencia.Portfolio.model.Tipo;
 import com.allamiflorencia.Portfolio.service.PortfolioService;
+import com.allamiflorencia.Portfolio.storage.FileService;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +35,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/no-auth")
 public class PortfolioController {
     @Autowired
-    private PortfolioService portServ;      
+    private PortfolioService portServ;  
+
+    @Autowired
+    private FileService storage;
     
     //Pedidos de la pag
     @GetMapping("/traer/persona")
@@ -73,5 +84,12 @@ public class PortfolioController {
     @ResponseBody
     public List<Tipo> verTipos(){
         return portServ.traerTipos();
+    }
+    
+    
+    //storage
+    @PostMapping(value="/loadFile", produces="text/plain")
+    public String loadImage(@RequestBody String filename){
+        return storage.loadImage(filename);
     }
 }

@@ -24,7 +24,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class JwtService {
 
-  //@Value("${secret}")
   private static final String SECRET_KEY = "7382591jdshDGEABTDSAGFDgmdksjgkls9706489265936hdgfvuiohuhsBNFSGR8289spcmrhPVe643FJIhji49hwbfuihdjkjjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjkjk7";
   private static final int DURATION = 1000 * 60 * 60;
   
