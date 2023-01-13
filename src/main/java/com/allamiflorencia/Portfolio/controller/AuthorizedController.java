@@ -36,6 +36,7 @@ public class AuthorizedController {
     private FileService storage;
     
     // update desde FE
+    //Info cards
     @PostMapping("/update/info")
     public void updateInfo(@RequestBody PseudoInfoDTO info){
         portServ.updateInfo(info);
@@ -46,17 +47,20 @@ public class AuthorizedController {
         portServ.borrarInfo(id);
     }
     
-    @PostMapping("/update/person")
-    public void crearPerson(@RequestBody Person person){
-        portServ.crearPerson(person);
-    }
-    
     @PostMapping("/crear/info")
     @ResponseBody
     public Long crearInfo(@RequestBody PseudoInfoDTO info){
         return portServ.crearInfo(info);
     }
     
+    //Person
+    @PostMapping("/update/person")
+    public void crearPerson(@RequestBody Person person){
+        portServ.crearPerson(person);
+    }
+    
+    
+    //Seccion
     @PostMapping("/crear/seccion")
     public Long crearSeccion(@RequestBody PseudoSeccionDTO pseudo_seccion){
         return portServ.crearSeccion(pseudo_seccion);
@@ -67,19 +71,7 @@ public class AuthorizedController {
         portServ.borrarSeccion(id);
     }
     
-    @PostMapping("/update/seccion")
-    public void updateSeccion(@RequestBody SeccionDTO seccion){
-        portServ.updateSeccionTitulo(seccion);
-    }
-    
-    //SetUp DB
-    @PostMapping("/crear/tipo/{nombre}")
-    public void crearTipo(@PathVariable String nombre){
-        portServ.crearTipo(nombre);
-    }  
-    
     //Imagenes
-    
     @PostMapping(value="/saveFile")
     public void subirImg(@RequestBody ImagenDTO imagen) throws IOException{
         storage.storeImage(imagen);
@@ -89,4 +81,15 @@ public class AuthorizedController {
     public void BorrarImg(@RequestBody String filename){
         storage.deleteImage(filename);
     }
+    
+    @PostMapping("/update/seccion")
+    public void updateSeccion(@RequestBody SeccionDTO seccion){
+        portServ.updateSeccionTitulo(seccion);
+    }
+    
+    //Setup DB
+    @PostMapping("/crear/tipo/{nombre}")
+    public void crearTipo(@PathVariable String nombre){
+        portServ.crearTipo(nombre);
+    }  
 }

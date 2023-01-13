@@ -11,15 +11,10 @@ import com.allamiflorencia.Portfolio.model.Seccion;
 import com.allamiflorencia.Portfolio.model.Tipo;
 import com.allamiflorencia.Portfolio.service.PortfolioService;
 import com.allamiflorencia.Portfolio.storage.FileService;
-import java.io.File;
-import java.io.FileInputStream;
-import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,6 +60,11 @@ public class PortfolioController {
         return portServ.traerTiposTitulos();
     }
     
+    //storage
+    @PostMapping(value="/loadFile", produces="text/plain")
+    public String loadImage(@RequestBody String filename){
+        return storage.loadImage(filename);
+    }
     
     //DEBUG ver la info que tengo en la db
     @GetMapping("/ver/seccion")
@@ -84,12 +84,5 @@ public class PortfolioController {
     @ResponseBody
     public List<Tipo> verTipos(){
         return portServ.traerTipos();
-    }
-    
-    
-    //storage
-    @PostMapping(value="/loadFile", produces="text/plain")
-    public String loadImage(@RequestBody String filename){
-        return storage.loadImage(filename);
     }
 }

@@ -48,7 +48,6 @@ public class FileService implements IFileService {
     
     @Override
     public void deleteImage(String filename){
-        System.out.println("Imma delete");
         Path path = Paths.get(PATH);
         path = path.resolve(filename);
         path = path.toAbsolutePath();

@@ -4,7 +4,6 @@
  */
 package com.allamiflorencia.Portfolio.DTO;
 
-import com.allamiflorencia.Portfolio.model.Info;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;

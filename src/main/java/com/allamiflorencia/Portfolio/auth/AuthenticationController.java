@@ -24,12 +24,15 @@ public class AuthenticationController {
 
   private final AuthenticationService service;
 
+  //no accesible desde Front End
   @PostMapping("/register")
   public ResponseEntity<AuthenticationResponse> register(
       @RequestBody RegisterRequest request
   ) {
     return ResponseEntity.ok(service.register(request));
   }
+  
+  //accesible desde Front End
   @PostMapping("/authenticate")
   public ResponseEntity<AuthenticationResponse> authenticate(
       @RequestBody AuthenticationRequest request

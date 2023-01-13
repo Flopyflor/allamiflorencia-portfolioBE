@@ -41,13 +41,21 @@ public class PortfolioService implements IPortfolioService {
     private PersonRepository persRepo;
     
 
+    //Tipo
     @Override
     public void crearTipo(String nombre) {
         Tipo tipo = new Tipo();
         tipo.setTipo(nombre);
         tipoRepo.save(tipo);
     }
+    
+    @Override
+    public List<String> traerTiposTitulos() {
+        return tipoRepo.getTitulos();
+    }
 
+
+    //Sección
     @Override
     public Long crearSeccion(PseudoSeccionDTO pseudo_seccion) {
         Seccion seccion = new Seccion();
@@ -59,50 +67,27 @@ public class PortfolioService implements IPortfolioService {
         secRepo.save(seccion);
         return secRepo.findSeccionByNombre(seccion.getTitulo()).getId();
     }
-
+    
     @Override
-    public void updateInfo(PseudoInfoDTO pseudo_info) {
-        Info info = new Info();
-        info.setId(pseudo_info.getId());
-        info.setDescripcion(pseudo_info.getDescripcion());
-        info.setTitulo(pseudo_info.getTitulo());
-        info.setLink(pseudo_info.getLink());
-        
-        Seccion seccion = secRepo.findSeccionByNombre(pseudo_info.getSeccion());
-        info.setSeccion(seccion);
-        
-        infoRepo.save(info);
+    public void borrarSeccion(Long id) {
+        secRepo.deleteById(id);
     }
     
     @Override
-    public Long crearInfo(PseudoInfoDTO pseudo_info){
-        Info info = new Info();
-        info.setId(pseudo_info.getId());
-        info.setDescripcion(pseudo_info.getDescripcion());
-        info.setTitulo(pseudo_info.getTitulo());
-        info.setLink(pseudo_info.getLink());
-        
-        Seccion seccion = secRepo.findSeccionByNombre(pseudo_info.getSeccion());
-        info.setSeccion(seccion);
-        
-        infoRepo.save(info);
-                
-        List<Long> lista = infoRepo.findNewInfo(seccion.getId());
-        
-        return lista.get(lista.size()-1);
+    public void updateSeccionTitulo(SeccionDTO pseudo_seccion) {
+        Seccion seccion = secRepo.findById(pseudo_seccion.getId()).orElse(null);
+        seccion.setTitulo(pseudo_seccion.getTitulo());
+        secRepo.save(seccion);
     }
-
+    
     @Override
-    public void crearPerson(Person person) {
-        persRepo.save(person);
-    }    
-
-    @Override
-    public Person traerPerson() {
-        Person persona = persRepo.findAll().get(0);
-        return persona;
+    public List<String> traerSeccionTitulo() {
+        return secRepo.getTitulos();
     }
-
+    
+    
+    //Secciones e Infos
+    
     @Override
     public List<SeccionDTO> traerSeccionesDTO() {
         List<Seccion> secciones = secRepo.findAll();
@@ -132,7 +117,55 @@ public class PortfolioService implements IPortfolioService {
         //return rta;
         return rta;
     }
+    
+    
+    //Info
+    @Override
+    public Long crearInfo(PseudoInfoDTO pseudo_info){
+        Info info = new Info();
+        info.setId(pseudo_info.getId());
+        info.setDescripcion(pseudo_info.getDescripcion());
+        info.setTitulo(pseudo_info.getTitulo());
+        info.setLink(pseudo_info.getLink());
+        
+        Seccion seccion = secRepo.findSeccionByNombre(pseudo_info.getSeccion());
+        info.setSeccion(seccion);
+        
+        infoRepo.save(info);
+                
+        List<Long> lista = infoRepo.findNewInfo(seccion.getId());
+        
+        return lista.get(lista.size()-1);
+    }
+    
+    @Override
+    public void borrarInfo(Long id) {
+        infoRepo.deleteById(id);
+    }
+    
+    @Override
+    public void updateInfo(PseudoInfoDTO pseudo_info) {
+        Info info = new Info();
+        info.setId(pseudo_info.getId());
+        info.setDescripcion(pseudo_info.getDescripcion());
+        info.setTitulo(pseudo_info.getTitulo());
+        info.setLink(pseudo_info.getLink());
+        
+        Seccion seccion = secRepo.findSeccionByNombre(pseudo_info.getSeccion());
+        info.setSeccion(seccion);
+        
+        infoRepo.save(info);
+    }
 
+    
+    //Person
+    @Override
+    public void crearPerson(Person person) {
+        persRepo.save(person);
+    }    
+
+
+    //DB debug
     @Override
     public List<Tipo> traerTipos() {
         return tipoRepo.findAll();
@@ -142,39 +175,16 @@ public class PortfolioService implements IPortfolioService {
     public List<Seccion> traerSecciones() {
         return secRepo.findAll();
     }
-
+    
     @Override
     public List<Info> traerInfo() {
         return infoRepo.findAll();
     }
-
+    
     @Override
-    public void borrarInfo(Long id) {
-        infoRepo.deleteById(id);
+    public Person traerPerson() {
+        Person persona = persRepo.findAll().get(0);
+        return persona;
     }
-
-    @Override
-    public void borrarSeccion(Long id) {
-        secRepo.deleteById(id);
-    }
-
-    @Override
-    public void updateSeccionTitulo(SeccionDTO pseudo_seccion) {
-        Seccion seccion = secRepo.findById(pseudo_seccion.getId()).orElse(null);
-        seccion.setTitulo(pseudo_seccion.getTitulo());
-        secRepo.save(seccion);
-    }
-
-    @Override
-    public List<String> traerSeccionTitulo() {
-        return secRepo.getTitulos();
-    }
-
-    @Override
-    public List<String> traerTiposTitulos() {
-        return tipoRepo.getTitulos();
-    }
-
-
     
 }
