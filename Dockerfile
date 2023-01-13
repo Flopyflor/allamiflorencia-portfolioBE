@@ -1,4 +1,4 @@
-FROM ibm-semeru-runtimes:17
+FROM amazoncorretto:17
 
 COPY target/Portfolio-0.0.1-SNAPSHOT.jar Portfolio-0.0.1-SNAPSHOT.jar
 
