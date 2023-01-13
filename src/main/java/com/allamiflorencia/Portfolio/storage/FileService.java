@@ -59,14 +59,15 @@ public class FileService implements IFileService {
     @Override
     public String loadImage(String filename){
         Path path = Paths.get(PATH);
-        
         path = path.resolve(filename);
         path = path.toAbsolutePath();
         File file = path.toFile();
         
         try{
-            FileInputStream stream = new FileInputStream(file);
-            byte[] imageBytes =  stream.readAllBytes();
+            byte[] imageBytes;
+            try (FileInputStream stream = new FileInputStream(file)) {
+                imageBytes = stream.readAllBytes();
+            }
             return "data:image/png;base64,\n"+ Base64.getMimeEncoder().encodeToString(imageBytes);
         } catch (FileNotFoundException ex){
             System.out.println(ex);

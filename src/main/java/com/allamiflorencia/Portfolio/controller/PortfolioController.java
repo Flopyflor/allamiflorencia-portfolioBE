@@ -76,7 +76,6 @@ public class PortfolioController {
     @GetMapping("/ver/info")
     @ResponseBody
     public List<Info> verInfo(){
-        System.out.println("estoy viendo la info");
         return portServ.traerInfo();
     }
     

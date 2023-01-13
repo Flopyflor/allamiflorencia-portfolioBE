@@ -17,7 +17,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SeccionRepository extends JpaRepository <Seccion, Long>{
     
-    @Query(value="SELECT * FROM seccion WHERE seccion.titulo=?1", nativeQuery=true)
+    @Query(value="SELECT * FROM seccion WHERE seccion.titulo= BINARY ?1", nativeQuery=true)
     public Seccion findSeccionByNombre(String nombre);
     
     @Query(value="SELECT seccion.titulo FROM seccion", nativeQuery=true)
