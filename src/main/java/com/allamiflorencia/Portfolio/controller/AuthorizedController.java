@@ -7,11 +7,8 @@ package com.allamiflorencia.Portfolio.controller;
 import com.allamiflorencia.Portfolio.DTO.ImagenDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoInfoDTO;
 import com.allamiflorencia.Portfolio.DTO.PseudoSeccionDTO;
-import com.allamiflorencia.Portfolio.DTO.SeccionDTO;
 import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.service.PortfolioService;
-import com.allamiflorencia.Portfolio.storage.FileService;
-import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +28,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthorizedController {
     @Autowired
     private PortfolioService portServ;
-    
-    @Autowired
-    private FileService storage;
     
     // update desde FE
     //Info cards
@@ -69,22 +63,6 @@ public class AuthorizedController {
     @PostMapping("/borrar/seccion")
     public void borrarSeccion(@RequestBody Long id){
         portServ.borrarSeccion(id);
-    }
-    
-    //Imagenes
-    @PostMapping(value="/saveFile")
-    public void subirImg(@RequestBody ImagenDTO imagen) throws IOException{
-        storage.storeImage(imagen);
-    }
-    
-    @PostMapping("/deleteFile")
-    public void BorrarImg(@RequestBody String filename){
-        storage.deleteImage(filename);
-    }
-    
-    @PostMapping("/update/seccion")
-    public void updateSeccion(@RequestBody SeccionDTO seccion){
-        portServ.updateSeccionTitulo(seccion);
     }
     
     //Setup DB

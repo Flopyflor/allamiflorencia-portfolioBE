@@ -10,7 +10,6 @@ import com.allamiflorencia.Portfolio.model.Person;
 import com.allamiflorencia.Portfolio.model.Seccion;
 import com.allamiflorencia.Portfolio.model.Tipo;
 import com.allamiflorencia.Portfolio.service.PortfolioService;
-import com.allamiflorencia.Portfolio.storage.FileService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,9 +31,6 @@ public class PortfolioController {
     @Autowired
     private PortfolioService portServ;  
 
-    @Autowired
-    private FileService storage;
-    
     //Pedidos de la pag
     @GetMapping("/traer/persona")
     @ResponseBody
@@ -58,12 +54,6 @@ public class PortfolioController {
     @ResponseBody
     public List<String> traerTipos(){
         return portServ.traerTiposTitulos();
-    }
-    
-    //storage
-    @PostMapping(value="/loadFile", produces="text/plain")
-    public String loadImage(@RequestBody String filename){
-        return storage.loadImage(filename);
     }
     
     //DEBUG ver la info que tengo en la db
